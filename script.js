@@ -30,6 +30,8 @@ const scheduleSecond = [
   { period: "Eleventh Period (11)", start: "4:20 PM", end: "5:05 PM" }
 ];
 
+const TRANSITION_MINUTES = 5; // 5-minute transition period
+
 function formatTime(date) {
   return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
 }
@@ -45,19 +47,30 @@ function parseTime(str) {
   return [parseInt(parts[1]), parseInt(parts[2]), parts[3]];
 }
 
-function getCurrentPeriod(now, schedule) {
+function getCurrentOrNextPeriod(now, schedule) {
   for (let i = 0; i < schedule.length; i++) {
       const period = schedule[i];
       const [startHour, startMinute, startPeriod] = parseTime(period.start);
       const startDate = new Date(now);
-      startDate.setHours(convertTo24Hour(startHour, startPeriod), startMinute, 0, 0); // Reset seconds and milliseconds
+      startDate.setHours(convertTo24Hour(startHour, startPeriod), startMinute, 0, 0);
 
       const [endHour, endMinute, endPeriod] = parseTime(period.end);
       const endDate = new Date(now);
-      endDate.setHours(convertTo24Hour(endHour, endPeriod), endMinute, 0, 0); // Reset seconds and milliseconds
+      endDate.setHours(convertTo24Hour(endHour, endPeriod), endMinute, 0, 0);
 
       if (now >= startDate && now < endDate) {
-          return { current: period.period, index: i, endTime: endDate };
+          return { current: period.period, index: i, endTime: endDate, isCurrent: true };
+      }
+      // Check for transition period (up to TRANSITION_MINUTES after end)
+      if (i < schedule.length - 1) {
+          const nextPeriod = schedule[i + 1];
+          const [nextStartHour, nextStartMinute, nextStartPeriod] = parseTime(nextPeriod.start);
+          const nextStartDate = new Date(now);
+          nextStartDate.setHours(convertTo24Hour(nextStartHour, nextStartPeriod), nextStartMinute, 0, 0);
+          const transitionEnd = new Date(endDate.getTime() + TRANSITION_MINUTES * 60000);
+          if (now >= endDate && now < transitionEnd) {
+              return { current: `Transition to ${nextPeriod.period}`, index: i, nextStartTime: nextStartDate, isTransition: true };
+          }
       }
   }
   return null;
@@ -83,8 +96,8 @@ function displaySchedule(schedule, elementId) {
   const now = new Date();
   let currentPeriodIndex = -1;
 
-  const current = getCurrentPeriod(now, schedule);
-  if (current) {
+  const current = getCurrentOrNextPeriod(now, schedule);
+  if (current && (current.isCurrent || current.isTransition)) {
       currentPeriodIndex = current.index;
   }
 
@@ -99,30 +112,57 @@ function displaySchedule(schedule, elementId) {
 
 function updateCurrentPeriod() {
   const now = new Date();
-  const currentPeriodFirst = getCurrentPeriod(now, scheduleFirst);
-  const currentPeriodSecond = getCurrentPeriod(now, scheduleSecond);
+  const currentPeriodFirst = getCurrentOrNextPeriod(now, scheduleFirst);
+  const currentPeriodSecond = getCurrentOrNextPeriod(now, scheduleSecond);
 
-  if (currentPeriodFirst || currentPeriodSecond) {
-      document.getElementById("currentPeriod").innerText = `Current period: ${currentPeriodFirst ? currentPeriodFirst.current : currentPeriodSecond.current}`;
+  const currentPeriod = currentPeriodFirst || currentPeriodSecond;
+  if (currentPeriod) {
+      if (currentPeriod.isCurrent) {
+          document.getElementById("currentPeriod").innerText = `Current period: ${currentPeriod.current}`;
+      } else if (currentPeriod.isTransition) {
+          document.getElementById("currentPeriod").innerText = `${currentPeriod.current}`;
+      }
   } else {
-      document.getElementById("currentPeriod").innerText = "Current period: School is out for the day";
+      // Check if outside school hours (5:05 PM - 7:25 AM)
+      const [endHour, endMinute] = parseTime("5:05 PM");
+      const endSchool = new Date(now);
+      endSchool.setHours(convertTo24Hour(endHour, "PM"), endMinute, 0, 0);
+      const [startHour, startMinute] = parseTime("7:25 AM");
+      const startSchool = new Date(now);
+      startSchool.setHours(convertTo24Hour(startHour, "AM"), startMinute, 0, 0);
+      if (now > endSchool || now < startSchool) {
+          document.getElementById("currentPeriod").innerText = "Current period: School is out for the day";
+      } else {
+          document.getElementById("currentPeriod").innerText = "Current period: Transition";
+      }
   }
 }
 
 function updateCountdown() {
   const now = new Date();
-  const currentPeriodFirst = getCurrentPeriod(now, scheduleFirst);
-  const currentPeriodSecond = getCurrentPeriod(now, scheduleSecond);
+  const currentPeriodFirst = getCurrentOrNextPeriod(now, scheduleFirst);
+  const currentPeriodSecond = getCurrentOrNextPeriod(now, scheduleSecond);
   const currentPeriod = currentPeriodFirst || currentPeriodSecond;
 
   if (currentPeriod) {
-      const timeLeft = currentPeriod.endTime - now;
-      if (timeLeft > 0) {
-          const minutes = Math.floor(timeLeft / 60000);
-          const seconds = Math.floor((timeLeft % 60000) / 1000);
-          document.getElementById("countdown").innerText = `Time remaining: ${minutes}m ${seconds}s`;
-      } else {
-          document.getElementById("countdown").innerText = "Time remaining: 0m 0s";
+      if (currentPeriod.isCurrent) {
+          const timeLeft = currentPeriod.endTime - now;
+          if (timeLeft > 0) {
+              const minutes = Math.floor(timeLeft / 60000);
+              const seconds = Math.floor((timeLeft % 60000) / 1000);
+              document.getElementById("countdown").innerText = `Time remaining: ${minutes}m ${seconds}s`;
+          } else {
+              document.getElementById("countdown").innerText = "Time remaining: 0m 0s";
+          }
+      } else if (currentPeriod.isTransition) {
+          const timeLeft = currentPeriod.nextStartTime - now;
+          if (timeLeft > 0) {
+              const minutes = Math.floor(timeLeft / 60000);
+              const seconds = Math.floor((timeLeft % 60000) / 1000);
+              document.getElementById("countdown").innerText = `Time until next period: ${minutes}m ${seconds}s`;
+          } else {
+              document.getElementById("countdown").innerText = "Time until next period: 0m 0s";
+          }
       }
   } else {
       document.getElementById("countdown").innerText = "Time remaining: N/A";
