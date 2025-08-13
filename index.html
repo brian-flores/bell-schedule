@@ -28,7 +28,7 @@
     }
 
     h1.dark-mode {
-      color: #ffffff; /* Should turn white in dark mode */
+      color: #ffffff;
     }
 
     #currentTime, #currentDate {
@@ -115,12 +115,32 @@
       border-bottom: 1px solid #555;
     }
 
+    .golden-period {
+      color: #DAA520; /* Golden text color */
+      font-weight: bold; /* Make it stand out */
+    }
+
+    .golden-period.dark-mode {
+      color: #FFC107; /* Slightly brighter gold for dark mode */
+    }
+
     .highlight {
       background-color: yellow;
     }
 
     .highlight.dark-mode {
       background-color: #cccc00;
+    }
+
+    /* Ensure highlight takes precedence over golden-period for background */
+    .schedule-entry.highlight.golden-period {
+      background-color: yellow; /* Keeps the highlight yellow */
+      color: #DAA520; /* Retains golden text */
+    }
+
+    .schedule-entry.highlight.golden-period.dark-mode {
+      background-color: #cccc00;
+      color: #FFC107;
     }
 
     .notes {
@@ -155,7 +175,7 @@
   </style>
 </head>
 <body>
-  <h1 class="title">Bell Schedule</h1> <!-- Added class for specific targeting -->
+  <h1 class="title">Bell Schedule</h1>
   <div id="currentTime"></div>
   <div id="currentDate"></div>
   <div id="currentPeriod">Current period: Loading...</div>

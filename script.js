@@ -1,33 +1,33 @@
 const scheduleFirst = [
   { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
-  { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
-  { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
-  { period: "Period 3", start: "10:10 AM", end: "10:55 AM" },
-  { period: "Period 4", start: "11:00 AM", end: "11:45 AM" },
-  { period: "Period 5 (Lunch)", start: "11:45 AM", end: "12:26 PM" },
-  { period: "Period 6 (Advisory)", start: "12:26 PM", end: "12:56 PM" },
-  { period: "Period 7", start: "1:00 PM", end: "1:45 PM" },
-  { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
-  { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
-  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
-  { period: "Eleventh Period (11)", start: "4:20 PM", end: "5:05 PM" }
+  { period: "Period 2 (Golden Period)", start: "8:30 AM", end: "9:15 AM" }, // Updated name
+  { period: "Period 3", start: "9:20 AM", end: "10:05 AM" },
+  { period: "Period 4", start: "10:10 AM", end: "10:55 AM" },
+  { period: "Period 5 (Lunch)", start: "11:00 AM", end: "11:45 AM" },
+  { period: "Period 6 (Advisory)", start: "11:45 AM", end: "12:26 PM" },
+  { period: "Period 7", start: "12:26 PM", end: "12:56 PM" },
+  { period: "Period 8", start: "1:00 PM", end: "1:45 PM" },
+  { period: "Period 9", start: "1:50 PM", end: "2:35 PM" },
+  { period: "Period 10", start: "2:40 PM", end: "3:25 PM" },
+  { period: "Eleventh Period (11)", start: "3:30 PM", end: "4:15 PM" },
+  { period: "Twelfth Period (12)", start: "4:20 PM", end: "5:05 PM" }
 ];
 
 const scheduleSecond = [
   { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
-  { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
-  { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
-  { period: "Period 3", start: "10:10 AM", end: "10:55 AM" },
-  { period: "Period 4", start: "11:00 AM", end: "11:45 AM" },
-  { period: "Period 5 (Advisory)", start: "11:49 AM", end: "12:19 PM" },
-  { period: "Period 6 (Lunch)", start: "12:19 PM", end: "1:00 PM" },
-  { period: "Period 7", start: "1:00 PM", end: "1:45 PM" },
-  { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
-  { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
-  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
-  { period: "Eleventh Period (11)", start: "4:20 PM", end: "5:05 PM" }
+  { period: "Period 2 (Golden Period)", start: "8:30 AM", end: "9:15 AM" }, // Updated name
+  { period: "Period 3", start: "9:20 AM", end: "10:05 AM" },
+  { period: "Period 4", start: "10:10 AM", end: "10:55 AM" },
+  { period: "Period 5 (Advisory)", start: "11:00 AM", end: "11:45 AM" },
+  { period: "Period 6 (Lunch)", start: "11:45 AM", end: "12:26 PM" },
+  { period: "Period 7", start: "12:26 PM", end: "12:56 PM" },
+  { period: "Period 8", start: "1:00 PM", end: "1:45 PM" },
+  { period: "Period 9", start: "1:50 PM", end: "2:35 PM" },
+  { period: "Period 10", start: "2:40 PM", end: "3:25 PM" },
+  { period: "Eleventh Period (11)", start: "3:30 PM", end: "4:15 PM" },
+  { period: "Twelfth Period (12)", start: "4:20 PM", end: "5:05 PM" }
 ];
 
 function formatTime(date) {
@@ -89,7 +89,10 @@ function displaySchedule(schedule, elementId) {
   }
 
   schedule.forEach((period, index) => {
-      const entry = `<div class="schedule-entry${index === currentPeriodIndex ? ' highlight' : ''}">${period.period}: ${period.start} - ${period.end}</div>`;
+      let classes = "schedule-entry";
+      if (index === currentPeriodIndex) classes += " highlight";
+      if (period.period === "Period 2 (Golden Period)") classes += " golden-period"; // Add golden-period class
+      const entry = `<div class="${classes}">${period.period}: ${period.start} - ${period.end}</div>`;
       display.innerHTML += entry;
   });
 }
@@ -109,7 +112,7 @@ function updateCurrentPeriod() {
 function toggleDarkMode() {
   const body = document.body;
   body.classList.toggle('dark-mode');
-  document.querySelector('.title').classList.toggle('dark-mode'); // Explicitly toggle dark-mode on h1
+  document.querySelector('.title').classList.toggle('dark-mode');
   document.querySelectorAll('.mode-switch, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
       element.classList.toggle('dark-mode');
   });
