@@ -57,7 +57,7 @@ function getCurrentPeriod(now, schedule) {
       endDate.setHours(convertTo24Hour(endHour, endPeriod), endMinute, 0);
 
       if (now >= startDate && now < endDate) {
-          return { current: period.period, index: i };
+          return { current: period.period, index: i, endTime: endDate };
       }
   }
   return null;
@@ -91,7 +91,7 @@ function displaySchedule(schedule, elementId) {
   schedule.forEach((period, index) => {
       let classes = "schedule-entry";
       if (index === currentPeriodIndex) classes += " highlight";
-      if (period.period === "Period 2") classes += " golden-period"; // Keep golden color
+      if (period.period === "Period 2") classes += " golden-period";
       const entry = `<div class="${classes}">${period.period}: ${period.start} - ${period.end}</div>`;
       display.innerHTML += entry;
   });
@@ -109,22 +109,11 @@ function updateCurrentPeriod() {
   }
 }
 
-function toggleDarkMode() {
-  const body = document.body;
-  body.classList.toggle('dark-mode');
-  document.querySelector('.title').classList.toggle('dark-mode');
-  document.querySelectorAll('.mode-switch, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
-      element.classList.toggle('dark-mode');
-  });
-}
+function updateCountdown() {
+  const now = new Date();
+  const currentPeriodFirst = getCurrentPeriod(now, scheduleFirst);
+  const currentPeriodSecond = getCurrentPeriod(now, scheduleSecond);
+  const currentPeriod = currentPeriodFirst || currentPeriodSecond;
 
-updateCurrentTime();
-displaySchedule(scheduleFirst, "firstLunchSchedule");
-displaySchedule(scheduleSecond, "secondLunchSchedule");
-updateCurrentPeriod();
-setInterval(() => {
-  updateCurrentTime();
-  displaySchedule(scheduleFirst, "firstLunchSchedule");
-  displaySchedule(scheduleSecond, "secondLunchSchedule");
-  updateCurrentPeriod();
-}, 1000);
+  if (currentPeriod) {
+      const timeLeft = current

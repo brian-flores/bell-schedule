@@ -52,6 +52,16 @@
       color: #ffffff;
     }
 
+    #countdown {
+      color: black;
+      font-size: 1.5rem;
+      margin: 5px 0;
+    }
+
+    #countdown.dark-mode {
+      color: #ffffff;
+    }
+
     .mode-switch {
       position: absolute;
       top: 20px;
@@ -116,12 +126,12 @@
     }
 
     .golden-period {
-      color: #DAA520; /* Golden text color */
-      font-weight: bold; /* Make it stand out */
+      color: #DAA520;
+      font-weight: bold;
     }
 
     .golden-period.dark-mode {
-      color: #FFC107; /* Slightly brighter gold for dark mode */
+      color: #FFC107;
     }
 
     .highlight {
@@ -132,10 +142,9 @@
       background-color: #cccc00;
     }
 
-    /* Ensure highlight takes precedence over golden-period for background */
     .schedule-entry.highlight.golden-period {
-      background-color: yellow; /* Keeps the highlight yellow */
-      color: #DAA520; /* Retains golden text */
+      background-color: yellow;
+      color: #DAA520;
     }
 
     .schedule-entry.highlight.golden-period.dark-mode {
@@ -160,6 +169,9 @@
       #currentPeriod {
         font-size: 1.5rem;
       }
+      #countdown {
+        font-size: 1.2rem;
+      }
       .schedule-container {
         flex-direction: column;
         gap: 15px;
@@ -179,6 +191,7 @@
   <div id="currentTime"></div>
   <div id="currentDate"></div>
   <div id="currentPeriod">Current period: Loading...</div>
+  <div id="countdown">Time remaining: Loading...</div> <!-- New countdown display -->
   <button class="mode-switch" onclick="toggleDarkMode()">Dark mode</button>
 
   <div class="schedule-container">
