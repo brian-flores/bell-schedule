@@ -1,5 +1,5 @@
 const scheduleFirst = [
-  { period: "Zero Period (0)", start: "7:35 AM", end: "8:15 AM" },
+  { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" }, // Changed start to 7:30 AM
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
   { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
   { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
@@ -10,11 +10,12 @@ const scheduleFirst = [
   { period: "Period 7", start: "1:00 PM", end: "1:45 PM" },
   { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
   { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
-  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" }
+  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
+  { period: "Period 11", start: "4:20 PM", end: "5:05 PM" } // Added Eleventh Period
 ];
 
 const scheduleSecond = [
-  { period: "Zero Period (0)", start: "7:35 AM", end: "8:15 AM" },
+  { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" }, // Changed start to 7:30 AM
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
   { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
   { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
@@ -25,7 +26,8 @@ const scheduleSecond = [
   { period: "Period 7", start: "1:00 PM", end: "1:45 PM" },
   { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
   { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
-  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" }
+  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
+  { period: "Period 11", start: "4:20 PM", end: "5:05 PM" } // Added Eleventh Period
 ];
 
 function formatTime(date) {
@@ -58,7 +60,7 @@ function getCurrentPeriod(now, schedule) {
           return { current: period.period, index: i };
       }
   }
-  return null; // School is out if no period matches
+  return null;
 }
 
 function updateCurrentTime() {
@@ -77,7 +79,6 @@ function displaySchedule(schedule, elementId) {
   const now = new Date();
   let currentPeriodIndex = -1;
 
-  // Check for current period in this schedule
   const current = getCurrentPeriod(now, schedule);
   if (current) {
       currentPeriodIndex = current.index;
@@ -108,6 +109,6 @@ updateCurrentPeriod();
 setInterval(() => {
   updateCurrentTime();
   displaySchedule(scheduleFirst, "firstLunchSchedule");
-  displaySchedule(scheduleSecond, "secondLunchSchedule");
+  displaySchedule(secondLunchSchedule, "secondLunchSchedule");
   updateCurrentPeriod();
 }, 1000);

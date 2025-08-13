@@ -23,13 +23,13 @@
     #currentTime, #currentDate {
       color: red;
       font-weight: bold;
-      font-size: 3rem; /* Increased size */
+      font-size: 3rem;
       margin: 0;
     }
 
     #currentPeriod {
       color: black;
-      font-size: 2rem; /* New size for current period */
+      font-size: 2rem;
       margin: 10px 0;
     }
 
@@ -49,8 +49,9 @@
     }
 
     .schedule-box h2 {
-      color: #800000;
+      color: black; /* Changed to black */
       margin-bottom: 10px;
+      text-align: center; /* Centered the title */
     }
 
     .schedule-entry {
@@ -61,7 +62,7 @@
     }
 
     .highlight {
-      background-color: yellow; /* Highlight for current period */
+      background-color: yellow;
     }
 
     .notes {
@@ -75,7 +76,7 @@
   <h1>Bell Schedule</h1>
   <div id="currentTime"></div>
   <div id="currentDate"></div>
-  <div id="currentPeriod">Current period: Loading...</div> <!-- New current period display -->
+  <div id="currentPeriod">Current period: Loading...</div>
 
   <div class="schedule-container">
     <div class="schedule-box" id="firstLunchSchedule">
