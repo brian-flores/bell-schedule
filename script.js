@@ -1,8 +1,9 @@
 const scheduleFirst = [
   { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
-  { period: "Period 2", start: "8:30 AM", end: "9:15 AM" }, // Reverted to original
-  { period: "Period 3", start: "9:20 AM", end: "10:05 AM" },
+  { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
+  { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
+  { period: "Period 3", start: "10:10 AM", end: "10:55 AM" },
   { period: "Period 4", start: "11:00 AM", end: "11:45 AM" },
   { period: "Period 5 (Lunch)", start: "11:45 AM", end: "12:26 PM" },
   { period: "Period 6 (Advisory)", start: "12:26 PM", end: "12:56 PM" },
@@ -16,8 +17,9 @@ const scheduleFirst = [
 const scheduleSecond = [
   { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
-  { period: "Period 2", start: "8:30 AM", end: "9:15 AM" }, // Reverted to original
-  { period: "Period 3", start: "9:20 AM", end: "10:05 AM" },
+  { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
+  { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
+  { period: "Period 3", start: "10:10 AM", end: "10:55 AM" },
   { period: "Period 4", start: "11:00 AM", end: "11:45 AM" },
   { period: "Period 5 (Advisory)", start: "11:49 AM", end: "12:19 PM" },
   { period: "Period 6 (Lunch)", start: "12:19 PM", end: "1:00 PM" },
