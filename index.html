@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hanks Time</title>
+  <link rel="icon" href="https://hanksrobotics.com/favicon.ico" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: red;
+      font-size: 3rem;
+      margin-bottom: 5px;
+    }
+
+    #currentTime, #currentDate {
+      color: red;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .countdown-box {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .countdown-text {
+      font-size: 2rem;
+      font-weight: bold;
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .schedule {
+      margin-top: 30px;
+      text-align: left;
+      display: inline-block;
+      border-top: 2px solid #ccc;
+      padding-top: 10px;
+    }
+
+    .schedule-entry {
+      font-size: 1rem;
+      line-height: 1.8;
+      border-bottom: 1px solid #ccc;
+      padding: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hanks Time</h1>
+  <div id="currentTime"></div>
+  <div id="currentDate"></div>
+
+  <div class="countdown-box">
+    <div class="countdown-text" id="periodStatus">Loading current period...</div>
+    <div class="countdown-text" id="countdown"></div>
+  </div>
+
+  <div class="schedule" id="scheduleDisplay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
