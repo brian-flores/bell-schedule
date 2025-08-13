@@ -57,7 +57,7 @@ function getCurrentPeriod(now, schedule) {
       endDate.setHours(convertTo24Hour(endHour, endPeriod), endMinute, 0);
 
       if (now >= startDate && now < endDate) {
-          return { current: period.period, index: i, endTime: endDate };
+          return { current: period.period, index: i };
       }
   }
   return null;
@@ -109,11 +109,22 @@ function updateCurrentPeriod() {
   }
 }
 
-function updateCountdown() {
-  const now = new Date();
-  const currentPeriodFirst = getCurrentPeriod(now, scheduleFirst);
-  const currentPeriodSecond = getCurrentPeriod(now, scheduleSecond);
-  const currentPeriod = currentPeriodFirst || currentPeriodSecond;
+function toggleDarkMode() {
+  const body = document.body;
+  body.classList.toggle('dark-mode');
+  document.querySelector('.title').classList.toggle('dark-mode');
+  document.querySelectorAll('.mode-switch, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
+      element.classList.toggle('dark-mode');
+  });
+}
 
-  if (currentPeriod) {
-      const timeLeft = current
+updateCurrentTime();
+displaySchedule(scheduleFirst, "firstLunchSchedule");
+displaySchedule(scheduleSecond, "secondLunchSchedule");
+updateCurrentPeriod();
+setInterval(() => {
+  updateCurrentTime();
+  displaySchedule(scheduleFirst, "firstLunchSchedule");
+  displaySchedule(scheduleSecond, "secondLunchSchedule");
+  updateCurrentPeriod();
+}, 1000);
