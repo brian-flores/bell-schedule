@@ -108,7 +108,7 @@ function updateCurrentPeriod() {
 
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
-  document.querySelectorAll('.dark-mode-toggle, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
+  document.querySelectorAll('.mode-switch, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
       element.classList.toggle('dark-mode');
   });
 }
