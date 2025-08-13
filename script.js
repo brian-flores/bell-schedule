@@ -50,14 +50,14 @@ function getCurrentPeriod(now, schedule) {
       const period = schedule[i];
       const [startHour, startMinute, startPeriod] = parseTime(period.start);
       const startDate = new Date(now);
-      startDate.setHours(convertTo24Hour(startHour, startPeriod), startMinute, 0);
+      startDate.setHours(convertTo24Hour(startHour, startPeriod), startMinute, 0, 0); // Reset seconds and milliseconds
 
       const [endHour, endMinute, endPeriod] = parseTime(period.end);
       const endDate = new Date(now);
-      endDate.setHours(convertTo24Hour(endHour, endPeriod), endMinute, 0);
+      endDate.setHours(convertTo24Hour(endHour, endPeriod), endMinute, 0, 0); // Reset seconds and milliseconds
 
       if (now >= startDate && now < endDate) {
-          return { current: period.period, index: i };
+          return { current: period.period, index: i, endTime: endDate };
       }
   }
   return null;
@@ -109,11 +109,31 @@ function updateCurrentPeriod() {
   }
 }
 
+function updateCountdown() {
+  const now = new Date();
+  const currentPeriodFirst = getCurrentPeriod(now, scheduleFirst);
+  const currentPeriodSecond = getCurrentPeriod(now, scheduleSecond);
+  const currentPeriod = currentPeriodFirst || currentPeriodSecond;
+
+  if (currentPeriod) {
+      const timeLeft = currentPeriod.endTime - now;
+      if (timeLeft > 0) {
+          const minutes = Math.floor(timeLeft / 60000);
+          const seconds = Math.floor((timeLeft % 60000) / 1000);
+          document.getElementById("countdown").innerText = `Time remaining: ${minutes}m ${seconds}s`;
+      } else {
+          document.getElementById("countdown").innerText = "Time remaining: 0m 0s";
+      }
+  } else {
+      document.getElementById("countdown").innerText = "Time remaining: N/A";
+  }
+}
+
 function toggleDarkMode() {
   const body = document.body;
   body.classList.toggle('dark-mode');
   document.querySelector('.title').classList.toggle('dark-mode');
-  document.querySelectorAll('.mode-switch, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
+  document.querySelectorAll('.mode-switch, #currentTime, #currentDate, #currentPeriod, #countdown, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
       element.classList.toggle('dark-mode');
   });
 }
@@ -122,9 +142,11 @@ updateCurrentTime();
 displaySchedule(scheduleFirst, "firstLunchSchedule");
 displaySchedule(scheduleSecond, "secondLunchSchedule");
 updateCurrentPeriod();
+updateCountdown();
 setInterval(() => {
   updateCurrentTime();
   displaySchedule(scheduleFirst, "firstLunchSchedule");
   displaySchedule(scheduleSecond, "secondLunchSchedule");
   updateCurrentPeriod();
+  updateCountdown();
 }, 1000);
