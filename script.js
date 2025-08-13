@@ -106,6 +106,13 @@ function updateCurrentPeriod() {
   }
 }
 
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  document.querySelectorAll('.dark-mode-toggle, #currentTime, #currentDate, #currentPeriod, .schedule-box, .schedule-entry, .highlight, .notes').forEach(element => {
+      element.classList.toggle('dark-mode');
+  });
+}
+
 updateCurrentTime();
 displaySchedule(scheduleFirst, "firstLunchSchedule");
 displaySchedule(scheduleSecond, "secondLunchSchedule");
@@ -113,6 +120,6 @@ updateCurrentPeriod();
 setInterval(() => {
   updateCurrentTime();
   displaySchedule(scheduleFirst, "firstLunchSchedule");
-  displaySchedule(scheduleSecond, "secondLunchSchedule"); // Fixed typo here
+  displaySchedule(scheduleSecond, "secondLunchSchedule");
   updateCurrentPeriod();
 }, 1000);
