@@ -5,12 +5,12 @@ const scheduleFirst = [
   { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
   { period: "Period 3", start: "10:10 AM", end: "10:55 AM" },
   { period: "Period 4", start: "11:00 AM", end: "11:45 AM" },
-  { period: "Period 5 (Lunch & Advisory)", start: "11:45 AM", end: "12:56 PM" },
-  { period: "Period 6", start: "1:00 PM", end: "1:45 PM" },
-  { period: "Period 7", start: "1:50 PM", end: "2:35 PM" },
-  { period: "Period 8", start: "2:40 PM", end: "3:25 PM" },
-  { period: "Period 9", start: "3:30 PM", end: "4:15 PM" },
-  { period: "Period 10", start: "4:20 PM", end: "5:05 PM" }
+  { period: "Period 5 (Lunch)", start: "11:45 AM", end: "12:26 PM" },
+  { period: "Period 6 (Advisory)", start: "12:26 PM", end: "12:56 PM" },
+  { period: "Period 7", start: "1:00 PM", end: "1:45 PM" },
+  { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
+  { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
+  { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
 ];
 
 const scheduleSecond = [
@@ -20,8 +20,8 @@ const scheduleSecond = [
   { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
   { period: "Period 3", start: "10:10 AM", end: "10:55 AM" },
   { period: "Period 4", start: "11:00 AM", end: "11:45 AM" },
-  { period: "Period 5", start: "11:49 AM", end: "12:19 PM" },
-  { period: "Period 6 (Advisory & Lunch)", start: "12:19 PM", end: "1:00 PM" },
+  { period: "Period 5 (Advisory)", start: "11:49 AM", end: "12:19 PM" },
+  { period: "Period 6 (Lunch)", start: "12:19 PM", end: "1:00 PM" },
   { period: "Period 7", start: "1:00 PM", end: "1:45 PM" },
   { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
   { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
