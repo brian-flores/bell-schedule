@@ -15,7 +15,7 @@
     }
 
     h1 {
-      color: black; /* Changed to black */
+      color: black;
       font-size: 3rem;
       margin-bottom: 5px;
     }
@@ -27,28 +27,24 @@
       margin: 0;
     }
 
-    .countdown-box {
+    .schedule-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
       margin-top: 30px;
+    }
+
+    .schedule-box {
       padding: 20px;
       background-color: white;
       border-radius: 10px;
-      display: inline-block;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .countdown-text {
-      font-size: 2rem;
-      font-weight: bold;
-      color: red;
-      margin-bottom: 10px;
-    }
-
-    .schedule {
-      margin-top: 30px;
       text-align: left;
-      display: inline-block;
-      border-top: 2px solid #ccc;
-      padding-top: 10px;
+    }
+
+    .schedule-box h2 {
+      color: #800000;
+      margin-bottom: 10px;
     }
 
     .schedule-entry {
@@ -57,19 +53,32 @@
       border-bottom: 1px solid #ccc;
       padding: 4px 0;
     }
+
+    .notes {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
-  <h1 style="color: black;">Bell Schedule</h1> <!-- Changed title and color -->
+  <h1>Bell Schedule</h1>
   <div id="currentTime"></div>
   <div id="currentDate"></div>
 
-  <div class="countdown-box">
-    <div class="countdown-text" id="periodStatus">Loading current period...</div>
-    <div class="countdown-text" id="countdown"></div>
+  <div class="schedule-container">
+    <div class="schedule-box" id="firstLunchSchedule">
+      <h2>First Lunch Schedule</h2>
+    </div>
+    <div class="schedule-box" id="secondLunchSchedule">
+      <h2>Second Lunch Schedule</h2>
+    </div>
   </div>
 
-  <div class="schedule" id="scheduleDisplay"></div>
+  <div class="notes">
+    Transition Time: 5 Minutes<br>
+    Lunch Time: 41 Minutes
+  </div>
 
   <script src="script.js"></script>
 </body>
