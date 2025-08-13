@@ -1,7 +1,7 @@
 const scheduleFirst = [
   { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
-  { period: "Period 2", start: "8:30 AM", end: "9:15 AM" }, // Updated name
+  { period: "Period 2", start: "8:30 AM", end: "9:15 AM" }, // Removed (Golden Period)
   { period: "Period 3", start: "9:20 AM", end: "10:05 AM" },
   { period: "Period 4", start: "10:10 AM", end: "10:55 AM" },
   { period: "Period 5 (Lunch)", start: "11:00 AM", end: "11:45 AM" },
@@ -17,7 +17,7 @@ const scheduleFirst = [
 const scheduleSecond = [
   { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
-  { period: "Period 2", start: "8:30 AM", end: "9:15 AM" }, // Updated name
+  { period: "Period 2", start: "8:30 AM", end: "9:15 AM" }, // Removed (Golden Period)
   { period: "Period 3", start: "9:20 AM", end: "10:05 AM" },
   { period: "Period 4", start: "10:10 AM", end: "10:55 AM" },
   { period: "Period 5 (Advisory)", start: "11:00 AM", end: "11:45 AM" },
@@ -91,7 +91,7 @@ function displaySchedule(schedule, elementId) {
   schedule.forEach((period, index) => {
       let classes = "schedule-entry";
       if (index === currentPeriodIndex) classes += " highlight";
-      if (period.period === "Period 2 (Golden Period)") classes += " golden-period"; // Add golden-period class
+      if (period.period === "Period 2") classes += " golden-period"; // Apply to Period 2
       const entry = `<div class="${classes}">${period.period}: ${period.start} - ${period.end}</div>`;
       display.innerHTML += entry;
   });
