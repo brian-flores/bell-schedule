@@ -1,5 +1,5 @@
 const scheduleFirst = [
-  { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" }, // Changed start to 7:30 AM
+  { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
   { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
   { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
@@ -11,11 +11,11 @@ const scheduleFirst = [
   { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
   { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
   { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
-  { period: "Period 11", start: "4:20 PM", end: "5:05 PM" } // Added Eleventh Period
+  { period: "Eleventh Period (11)", start: "4:20 PM", end: "5:05 PM" }
 ];
 
 const scheduleSecond = [
-  { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" }, // Changed start to 7:30 AM
+  { period: "Zero Period (0)", start: "7:30 AM", end: "8:15 AM" },
   { period: "Warning Bell", start: "8:25 AM", end: "8:25 AM" },
   { period: "Period 1", start: "8:30 AM", end: "9:15 AM" },
   { period: "Period 2", start: "9:20 AM", end: "10:05 AM" },
@@ -27,7 +27,7 @@ const scheduleSecond = [
   { period: "Period 8", start: "1:50 PM", end: "2:35 PM" },
   { period: "Period 9", start: "2:40 PM", end: "3:25 PM" },
   { period: "Period 10", start: "3:30 PM", end: "4:15 PM" },
-  { period: "Period 11", start: "4:20 PM", end: "5:05 PM" } // Added Eleventh Period
+  { period: "Eleventh Period (11)", start: "4:20 PM", end: "5:05 PM" }
 ];
 
 function formatTime(date) {
@@ -75,6 +75,10 @@ function updateCurrentTime() {
 
 function displaySchedule(schedule, elementId) {
   const display = document.getElementById(elementId);
+  if (!display) {
+      console.error(`Element with ID ${elementId} not found`);
+      return;
+  }
   display.innerHTML = `<h2>${elementId === 'firstLunchSchedule' ? 'First Lunch Schedule' : 'Second Lunch Schedule'}</h2>`;
   const now = new Date();
   let currentPeriodIndex = -1;
@@ -109,6 +113,6 @@ updateCurrentPeriod();
 setInterval(() => {
   updateCurrentTime();
   displaySchedule(scheduleFirst, "firstLunchSchedule");
-  displaySchedule(secondLunchSchedule, "secondLunchSchedule");
+  displaySchedule(scheduleSecond, "secondLunchSchedule"); // Fixed typo here
   updateCurrentPeriod();
 }, 1000);
